@@ -1,0 +1,137 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features from '~/components/widgets/Features.astro';
+import { Picture } from 'astro:assets';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'lock4it is helping IT people ',
+  ignoreTitleTemplate: true,
+};
+import namesOnMetal from '../assets/images/names-on-metal.jpg';
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Get Started',
+        href: 'https://github.com/kaanguru/lock4it',
+        target: '_blank',
+        icon: 'tabler:database',
+      },
+      { text: 'Learn more', href: '#features' },
+    ]}
+    image={{ src: '/img/lock4it-enter.webp', alt: ' Keep Your Data Offline with lock4it' }}
+  >
+    <Fragment slot="title">
+      <span class="hidden xl:inline">Keep Your Network Devices Under Control!</span>
+      Keep Your Data Offline
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="text-primary dark:text-white highlight">lock4it</span><span class="hidden sm:inline">
+        <span class="font-semibold">Secure</span> and Offline is
+      </span>
+
+      management solution for your computers and printersü eliminates the worries of cloud storage by securely storing
+      all your data in your browser. After logging in with your master password, you can easily add your devices and
+      manage your remote connection passwords safely.
+    </Fragment>
+  </Hero>
+
+  <!-- Note Widget ******************* -->
+  <Picture class="max-w-screen-md mx-auto p-2" src={namesOnMetal} alt="enterence of lock4it app" />
+  <Note />
+
+  <!-- Features Widget *************** -->
+
+  <Features
+    id="features"
+    tagline="Features"
+    title="What you get with lock4it"
+    subtitle="With offline functionality, you can access your information anytime, anywhere, while protecting your privacy."
+    items={[
+      {
+        title: 'lock4it with main password',
+        description: 'Lock your data when you are away from screen',
+        icon: 'tabler:password',
+      },
+      {
+        title: 'Responsive and Mobile-Friendly',
+        description: 'Adapt seamlessly to different screen sizes and devices to ensure a consistent experience.',
+        icon: 'tabler:picture-in-picture',
+      },
+      {
+        title: 'Strong Schema',
+        description:
+          'Data schemas improves data accuracy and security while improving the user experience, efficiency and quality.',
+        icon: 'tabler:adjustments-horizontal',
+      },
+      {
+        title: 'Fast Loading Times',
+        description: 'Optimized for speed to ensure a smooth user experience',
+        icon: 'tabler:rocket',
+      },
+    ]}
+  />
+
+  <!-- FAQs Widget ******************* -->
+
+  <FAQs
+    title="Why Lock4IT?"
+    subtitle="Dive into the powerful features that Lock4IT offers and how it can elevate your web development journey."
+    tagline="FAQs"
+    classes={{ container: 'max-w-6xl' }}
+    items={[
+      {
+        title: '1. Offline Functionality:',
+        description:
+          " One of the main benefits of PWAs with local storage is the ability to provide offline functionality. PWAs can store data in the local storage of the user's device, allowing the app to load previously stored data even when the user is not connected to the internet. This enables the app to function seamlessly even in poor network conditions",
+      },
+      {
+        title: '2. Improved Performance',
+        description:
+          ' By utilizing local storage, PWAs can improve performance by reducing reliance on the network connection. Traditional websites heavily rely on the network connection to fetch data, which can result in slower loading times. With local storage, PWAs can store frequently accessed data locally, reducing the need for repeated network requests and improving overall performance',
+      },
+      {
+        title: '3. Enhanced User Experience',
+        description:
+          'PWAs with local storage can provide a better user experience by allowing users to continue using the app even when they are offline or have a poor network connection. By storing data locally, PWAs can ensure that users can access previously loaded content, view cached pages, and perform certain actions without an internet connection',
+      },
+      {
+        title: '4. Persistent Storage',
+        description:
+          " PWAs can request persistent storage, which means that data stored in IndexedDB and Cache Storage will not be deleted by the browser when storage space runs low or when the user hasn't interacted with the app for a period of time. The browser will retain the data as long as possible and provide a way for the user to manually remove some data if necessary.",
+      },
+    ]}
+  />
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Get Started',
+        href: 'https://github.com/kaanguru/lock4it',
+        target: '_blank',
+        icon: 'tabler:database',
+      },
+    ]}
+  >
+    <Fragment slot="title">
+      Lock<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">IT</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Start taking notes about computers under your responsibility <br class="hidden md:inline" />It's Free Forever!
+    </Fragment>
+  </CallToAction>
+</Layout>

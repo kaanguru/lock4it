@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+body {
+	@apply h-full;
+}
+
+@font-face {
+	font-family: 'SourceSans3ExtraLight';
+	src: url('/fonts/SourceSans3.ttf');
+	/* font-display: swap; */
+}
+@font-face {
+	font-family: 'Iceland';
+	src: url('/fonts/Iceland-Regular.ttf');
+	/* font-display: swap; */
+}
+input {
+	@apply input;
+}
+h1 {
+	@apply h1;
+}
+h2 {
+	@apply h2;
+}
+h3 {
+	@apply h3;
+}
+p {
+	@apply prose prose-xl;
+}
+
+label {
+	@apply label my-3;
+}
+button {
+	@apply btn variant-filled-primary my-3;
+}
+.error {
+	@apply bg-error-800 text-error-100 m-2;
+}
+textarea {
+	@apply textarea;
+}
