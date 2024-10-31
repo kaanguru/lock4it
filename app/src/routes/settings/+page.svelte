@@ -3,6 +3,8 @@
 	import { exportComputersData, importDatabase, type Computer } from '$lib/db';
 	import { PrepareForExportThenSave } from '$lib/ComputerExporter';
 	import { decryptData } from '$lib/crypt';
+	import { version } from '$app/environment';
+
 	let computers: Computer[] = [];
 	let saver: PrepareForExportThenSave;
 	let imported: boolean = false;
@@ -36,6 +38,7 @@
 	}
 </script>
 
+<span class="text-xs">Lock4IT v{version}</span>
 <div id="import">
 	{#if computers.length == 0}
 		<h3>No computers found. Please import a backup file first.</h3>
@@ -49,12 +52,14 @@
 		<p>Please upload your backup file (.bak) to restore your data.</p>
 		{#if imported}
 			<p class="success">Files imported successfully!</p>
-			<p>Here is the list of computers imported:</p>
-			<ul>
-				{#each computers as computer}
-					<li>{computer.name}</li>
-				{/each}
-			</ul>
+			{#if computers.length > 0}
+				<p>Here is the list of computers imported:</p>
+				<ul>
+					{#each computers as computer}
+						<li>{computer.name}</li>
+					{/each}
+				</ul>
+			{/if}
 		{/if}
 	</div>
 </div>
