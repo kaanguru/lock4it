@@ -16,8 +16,11 @@ export class PrepareForExportThenSave {
 		await this.downloadFileThenClean(url, fileName);
 	}
 	private async createJsonBlob(data) {
-		return new Promise((resolve) => {
-			const blobIT = [JSON.stringify(encryptedData(data))];
+		return new Promise(async (resolve) => {
+			const encrypted = await encryptedData(data);
+
+			const blobIT = [JSON.stringify(encrypted)];
+
 			const blob = new Blob(blobIT, { type: 'application/json' });
 			resolve(blob);
 		});
