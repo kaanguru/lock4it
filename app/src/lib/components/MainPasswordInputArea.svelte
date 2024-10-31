@@ -31,7 +31,7 @@
 		title="main-password"
 		type={visiblePasswordInputArea ? 'text' : 'password'}
 		bind:value={plainTextPassword}
-		placeholder="Enter main password"
+		placeholder="Enter master password"
 		required
 		autocomplete="new-password"
 		on:input={updateValue}
@@ -62,4 +62,6 @@
 		</button>
 	</div>
 {/if}
-<button type="submit" on:click={() => stopSubmitionIfTypo()}>{submit}</button>
+<button type="submit" on:click={() => stopSubmitionIfTypo()} class="btn variant-filled-secondary">
+	{submit}
+</button>

@@ -64,10 +64,19 @@
 <div class="orta-kolon">
 	{#if data.firstTime}
 		<h1>Hello stranger!</h1>
-		<img src="img/lock4it-logo.png" alt="logo" />
-		<p>Enter a strong Password which will be your main password after all</p>
+		<p>
+			It's your first visit to this IT inventory app. <br />
+			Please set a master password to get started.
+		</p>
+		<img src="img/lock4it-logo.png" alt="logo" class="m-auto" />
+		<p>
+			Please, enter a strong password! <br />
+			It will be your
+			<strong>Master Password</strong>
+			after all
+		</p>
 		<form on:submit|preventDefault={saveMasterPass}>
-			<MainPasswordInputArea needsTypoCheck submit="Save Your Main Password" on:update={handleUpdate}
+			<MainPasswordInputArea needsTypoCheck submit="Save Your Master Password" on:update={handleUpdate}
 			></MainPasswordInputArea>
 		</form>
 	{:else}
@@ -89,5 +98,8 @@
 	}
 	.orta-kolon {
 		@apply flex flex-col text-center;
+	}
+	form {
+		@apply m-auto;
 	}
 </style>

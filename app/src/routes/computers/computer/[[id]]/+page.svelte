@@ -13,9 +13,9 @@
 	const modalStore = getModalStore();
 	export let data;
 	selectedComputer.set(data.selectedComputer);
-	const modal: ModalSettings = {
+	const editModal: ModalSettings = {
 		type: 'component',
-		backdropClasses: '!bg-primary-100',
+		backdropClasses: '!bg-primary-100 !overflow-auto',
 		component: 'EditComputerForm'
 	};
 
@@ -26,14 +26,14 @@
 </script>
 
 <div class="flex justify-center">
-	<div class="card card-hover overflow-hidden">
+	<div class="card card-hover overflow-hidden min-w-[300px]">
 		<header class="card-header"><h1>{data.selectedComputer?.name}</h1></header>
 		<div class="p-4 space-y-4">
 			<article>
 				{#each Object.entries(data.selectedComputer) as [key, value]}
-					<div class="flex items-center">
+					<div class="flex items-center border-b">
 						{#if value}
-							<p class="title">{key}:</p>
+							<p class="title py-3">{key}:</p>
 							<p class="value">{value}</p>
 						{/if}
 					</div>
@@ -41,10 +41,15 @@
 			</article>
 		</div>
 		<footer class="card-footer">
-			<button type="button" class="icon-button" on:click={() => modalStore.trigger(modal)} aria-label="Edit">
+			<button
+				type="button"
+				class="btn-icon variant-filled mx-2"
+				on:click={() => modalStore.trigger(editModal)}
+				aria-label="Edit"
+			>
 				<iconify-icon icon="lucide:edit"></iconify-icon>
 			</button>
-			<button type="button" class="icon-button" on:click={() => deleteAndTurntoList()} aria-label="Delete">
+			<button type="button" class="btn-icon variant-filled" on:click={() => deleteAndTurntoList()} aria-label="Delete">
 				<iconify-icon icon="lucide:trash"></iconify-icon>
 			</button>
 		</footer>

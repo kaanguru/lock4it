@@ -4,7 +4,9 @@
 	import { _computerSchema, editComputer, type Computer } from '$lib/db';
 	import { selectedComputer } from '$lib/store';
 	import { zod } from 'sveltekit-superforms/adapters';
-	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+	import { Accordion, AccordionItem, getModalStore } from '@skeletonlabs/skeleton';
+	const modalStore = getModalStore();
+
 	const { form, errors, constraints, enhance, message } = superForm(defaults(zod(_computerSchema)), {
 		id: 'edit-form',
 		SPA: true,
@@ -41,8 +43,11 @@
 	}
 </script>
 
-<form method="POST" use:enhance>
-	<p>
+<div class="flex flex-col mx-auto max-w-lg px-3">
+	<h2>
+		Edit Computer <iconify-icon icon="line-md:computer"></iconify-icon>
+	</h2>
+	<form method="POST" use:enhance>
 		<label>
 			<span>Name</span>
 			<input
@@ -232,26 +237,37 @@
 				</svelte:fragment>
 			</AccordionItem>
 		</Accordion>
-	</p>
-	<label>
-		<iconify-icon icon="lucide:notebook-pen"></iconify-icon>
-		<span class="text-end">notes</span>
-		<picture>
-			<source media="(min-width: )" srcset="" />
-			<img src="" alt="" />
-		</picture>
-		<textarea
-			title="notes"
-			class={$errors.notes ? 'input-error' : undefined}
-			aria-invalid={$errors.notes ? 'true' : undefined}
-			bind:value={$form.notes}
-			{...$constraints.notes}
-		></textarea>
-		{#if $errors.notes}<span class="error">{$errors.notes}</span>{/if}
-	</label>
-	<button>
-		<iconify-icon icon="lucide:plus-circle" width="1.2rem" height="1.2rem" class="pr-4"></iconify-icon>
-		Edit Computer
-	</button>
-	{#if $message}<p>{$message}</p>{/if}
-</form>
+		<label>
+			<iconify-icon icon="lucide:notebook-pen"></iconify-icon>
+			<span class="text-end">notes</span>
+			<picture>
+				<source media="(min-width: )" srcset="" />
+				<img src="" alt="" />
+			</picture>
+			<textarea
+				title="notes"
+				class={$errors.notes ? 'input-error' : undefined}
+				aria-invalid={$errors.notes ? 'true' : undefined}
+				bind:value={$form.notes}
+				{...$constraints.notes}
+			></textarea>
+			{#if $errors.notes}<span class="error">{$errors.notes}</span>{/if}
+		</label>
+		<div class="flex justify-around">
+			<button>
+				<iconify-icon icon="lucide:plus-circle" width="1.2rem" height="1.2rem" class="pr-4"></iconify-icon>
+				Edit Computer
+			</button>
+			<button
+				on:click={() => {
+					modalStore.close();
+				}}
+				aria-label="cancel"
+				class="text-error-200 ms-2"
+			>
+				<iconify-icon icon="lucide:circle-x" width="1.2rem" height="1.2rem"></iconify-icon>
+			</button>
+		</div>
+		{#if $message}<p>{$message}</p>{/if}
+	</form>
+</div>
