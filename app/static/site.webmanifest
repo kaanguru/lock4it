@@ -24,13 +24,8 @@
 			"type": "image/png"
 		},
 		{
-			"src": "icons/favicon-16x16.png",
-			"sizes": "16x16",
-			"type": "image/png"
-		},
-		{
 			"src": "icons/favicon.png",
-			"sizes": "134x141",
+			"sizes": "96x96",
 			"type": "image/png"
 		},
 		{
@@ -51,6 +46,7 @@
 			"short_name": "Settings",
 			"description": "Import Export data and Edit your settings ",
 			"portrait": true,
+			"form_factor": "narrow",
 			"src": "scrnshots/GalaxyS8Set.png",
 			"sizes": "1440x2960",
 			"type": "image/png",
@@ -63,11 +59,38 @@
 			"short_name": "Computers",
 			"description": "List and filter your computers",
 			"portrait": true,
+			"form_factor": "narrow",
 			"src": "scrnshots/GalaxyS8.png",
 			"sizes": "1440x2960",
 			"type": "image/png",
 			"width": 1440,
 			"height": 2960
+		},
+		{
+			"url": "/computers",
+			"name": "List Computers",
+			"short_name": "Computers",
+			"description": "List and filter your computers",
+			"portrait": true,
+			"form_factor": "wide",
+			"src": "scrnshots/wide-computers.png",
+			"sizes": "1704x918",
+			"type": "image/png",
+			"width": 1704,
+			"height": 918
+		},
+		{
+			"url": "/",
+			"name": "Enter",
+			"short_name": "enter",
+			"description": "Enter your master password",
+			"portrait": true,
+			"form_factor": "wide",
+			"src": "scrnshots/enter-wide.png",
+			"sizes": "1704x918",
+			"type": "image/png",
+			"width": 1704,
+			"height": 918
 		}
 	],
 	"shortcuts": [
@@ -75,7 +98,14 @@
 			"name": "Open Computers",
 			"short_name": "Computers",
 			"description": "List and filter your computers",
-			"url": "/computers"
+			"url": "/computers",
+			"icons": [
+				{
+					"src": "icons/android-chrome-192x192.png",
+					"sizes": "192x192",
+					"type": "image/png"
+				}
+			]
 		}
 	]
 }
