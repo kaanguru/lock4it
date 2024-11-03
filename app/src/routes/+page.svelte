@@ -20,17 +20,25 @@
 		plainTextPassword = event.detail;
 	}
 	async function unlock() {
-		const hash = CryptoES.HmacMD5(plainTextPassword, data.secret);
-		if (data.authToken.token && data.authToken.token === hash.toString(CryptoES.enc.Base64)) {
-			loggedIn.set(true);
-		} else {
-			(document.querySelector('input') as HTMLInputElement).value = '';
-			plainTextPassword = '';
-			toastStore.trigger({
-				message: 'Invalid password,Please try again'
-			});
+		if (data?.secret.length > 9) {
+			try {
+				const hash = CryptoES.HmacMD5(plainTextPassword, data.secret);
+				if (data.authToken.token && data.authToken.token === hash.toString(CryptoES.enc.Base64)) {
+					loggedIn.set(true);
+				} else {
+					(document.querySelector('input') as HTMLInputElement).value = '';
+					plainTextPassword = '';
+					toastStore.trigger({
+						message: 'Invalid password,Please try again'
+					});
 
-			loggedIn.set(false);
+					loggedIn.set(false);
+				}
+			} catch (error) {
+				console.log('ℹ  ~ unlock ~ error:', error);
+			}
+		} else {
+			console.log('ℹ  ~ unlock ~ NO SECRET in env');
 		}
 	}
 
