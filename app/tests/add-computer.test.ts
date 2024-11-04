@@ -10,27 +10,43 @@ const mockPass = 'testPass';
 test.beforeEach(async ({ page }) => {
 	if (firstRun) {
 		await page.goto('/');
-		await page.getByPlaceholder('Enter main password').fill(mockPass);
+		await page.getByPlaceholder('Enter master password').click();
+		await page.getByPlaceholder('Enter master password').fill('testPass');
+		await page.getByPlaceholder('Enter master password').press('Tab');
+		await page.getByRole('button').nth(1).press('Tab');
+		await page.getByPlaceholder('Re-Type your password').fill('TestPass');
+		await page.getByPlaceholder('Re-Type your password').press('Tab');
+		await page.getByRole('button').nth(2).press('Tab');
+		await page.getByRole('button', { name: 'Save Your Master Password' }).click();
+		await page.getByLabel('Dismiss toast').click();
+		await page.getByPlaceholder('Enter master password').click();
+		await page.getByPlaceholder('Enter master password').fill(mockPass);
+		await page.getByPlaceholder('Enter master password').press('Tab');
+		await page.getByPlaceholder('Re-Type your password').click();
 		await page.getByPlaceholder('Re-Type your password').fill(mockPass);
-		await page.getByRole('button', { name: 'Save Your Main Password' }).click();
+		await page.getByRole('button').nth(2).click();
+		await page.getByRole('button').nth(2).click();
+		await page.getByRole('button', { name: 'Save Your Master Password' }).click();
 		firstRun = false;
 		await page.goto('/');
-		await page.getByPlaceholder('Enter main password').fill(mockPass);
+		await page.getByPlaceholder('Enter master password').click();
+		await page.getByPlaceholder('Enter master password').fill(mockPass);
 		await page.getByRole('button', { name: 'UnLock' }).click();
+		loggedInUser = true;
 	} else {
 		await page.goto('/');
-		await page.getByPlaceholder('Enter main password').fill(mockPass);
+		await page.getByPlaceholder('Enter master password').fill(mockPass);
 		await page.getByRole('button', { name: 'UnLock' }).click();
+		loggedInUser = true;
 	}
-	await page.getByPlaceholder('Enter main password').fill(mockPass);
-	await page.getByRole('button', { name: 'UnLock' }).click();
-	await page.goto('/computers/add');
-	await page.getByTitle('Name').fill(mockData.name);
+	if (!loggedInUser) {
+		await page.getByPlaceholder('Enter master password').fill(mockPass);
+		await page.getByRole('button', { name: 'UnLock' }).click();
+		await page.goto('/computers/add');
+		await page.getByTitle('Name').fill(mockData.name);
+	}
 });
-test.afterEach('check for success', async ({ page }) => {
-	await page.getByRole('button', { name: 'Add Computer' }).click();
-	await expect(page.getByRole('paragraph').getByText(mockData.name)).toBeVisible();
-});
+
 test.describe('Tests expected to pass', () => {
 	test('add ✅ all', async ({ page }) => {
 		await page.getByRole('button', { name: 'Network' }).click();
@@ -51,6 +67,9 @@ test.describe('Tests expected to pass', () => {
 		for (const [title, value] of titlesAndValues) {
 			await fillField(page, title, value);
 		}
+		await page.getByRole('button', { name: 'Add Computer' }).click();
+		// await page.getByLabel('Dismiss toast').click();
+		await expect(page.getByRole('paragraph').getByText(mockData.name)).toBeVisible();
 	});
 });
 test.describe('Checks of wrong enterence', () => {

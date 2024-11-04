@@ -28,6 +28,7 @@
 
 <div class="input-group input-group-divider grid-cols-[1fr_auto]">
 	<input
+		id="password-input"
 		title="main-password"
 		type={visiblePasswordInputArea ? 'text' : 'password'}
 		bind:value={plainTextPassword}
