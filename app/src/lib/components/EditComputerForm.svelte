@@ -5,6 +5,8 @@
 	import { selectedComputer } from '$lib/store';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { Accordion, AccordionItem, getModalStore } from '@skeletonlabs/skeleton';
+	import { _ } from 'svelte-i18n';
+
 	const modalStore = getModalStore();
 
 	const { form, errors, constraints, enhance, message } = superForm(defaults(zod(_computerSchema)), {
@@ -22,13 +24,13 @@
 		if (form.valid) {
 			form.data.id = computerGettingEdited?.id;
 			await editComputer(form.data);
-			setMessage(form, `Computer: ${form.data.name} has been updated!`);
+			setMessage(form, `${$_('computer')} : ${form.data.name} ${$_('has_been_updated')}`);
 		} else {
-			setMessage(form, 'Form is invalid!');
+			setMessage(form, $_('form_is_invalid'));
 		}
 	}
 
-	const remoteConnectionSoftwares = ['Anydesk', 'Teamviewer', 'RustDesk', 'Parsec', 'other'];
+	const remoteConnectionSoftwares = [$_('anydesk'), $_('teamviewer'), 'RustDesk', $_('parsec'), $_('other')];
 	let selectedRemoteConnectionSoftware = '';
 	function updateSelectedRemoteConnectionSoftware(selSof: string): void {
 		selectedRemoteConnectionSoftware = selSof;
@@ -49,7 +51,7 @@
 	</h2>
 	<form method="POST" use:enhance>
 		<label>
-			<span>Name</span>
+			<span>{$_('name')}</span>
 			<input
 				title="Name"
 				type="text"
@@ -65,7 +67,7 @@
 			<AccordionItem>
 				<svelte:fragment slot="summary">
 					<iconify-icon icon="lucide:cable"></iconify-icon>
-					Remote Connection
+					{$_('remote_connectio')}
 				</svelte:fragment>
 				<svelte:fragment slot="content">
 					<input title="removeConnectionSoftware" type="hidden" bind:value={$form.removeConnectionSoftware} />
@@ -82,7 +84,7 @@
 						</button>
 					{/each}
 					<label>
-						<span>remote Connection Id</span>
+						<span>{$_('remote_connectio-0')}</span>
 						<input
 							title="remoteConnectionId"
 							type="text"
@@ -94,7 +96,7 @@
 						{#if $errors.remoteConnectionId}<span class="error">{$errors.remoteConnectionId}</span>{/if}
 					</label>
 					<label>
-						<span>remoteConnectionPass</span>
+						<span>{$_('remote_connectio-1')}</span>
 						<input
 							title="remoteConnectionPass"
 							type="password"
@@ -114,7 +116,7 @@
 				</svelte:fragment>
 				<svelte:fragment slot="content">
 					<label>
-						<span>IP Address</span>
+						<span>{$_('ip_address')}</span>
 						<input
 							title="IP Address"
 							type="text"
@@ -127,7 +129,7 @@
 						{#if $errors.ipAddress}<span class="error">{$errors.ipAddress}</span>{/if}
 					</label>
 					<label>
-						<span>Mac Address</span>
+						<span>{$_('mac_address')}</span>
 						<input
 							title="Mac Address"
 							type="text"
@@ -144,11 +146,11 @@
 			<AccordionItem>
 				<svelte:fragment slot="summary">
 					<iconify-icon icon="lucide:cpu"></iconify-icon>
-					Hardware
+					{$_('hardware')}
 				</svelte:fragment>
 				<svelte:fragment slot="content">
 					<label>
-						<span>Memory Ram Gb</span>
+						<span>{$_('memory_ram_in_gb')}</span>
 						<input
 							title="Memory"
 							type="number"
@@ -161,7 +163,7 @@
 						{#if $errors.memory}<span class="error">{$errors.memory}</span>{/if}
 					</label>
 					<label>
-						<span>Processor</span>
+						<span>{$_('processor')}</span>
 						<input
 							title="processor"
 							type="text"
@@ -174,7 +176,7 @@
 						{#if $errors.processor}<span class="error">{$errors.processor}</span>{/if}
 					</label>
 					<label>
-						<span>Mother Board</span>
+						<span>{$_('mother_board')}</span>
 						<input
 							title="motherBoard"
 							type="text"
@@ -187,7 +189,7 @@
 						{#if $errors.motherBoard}<span class="error">{$errors.motherBoard}</span>{/if}
 					</label>
 					<label>
-						<span>Monitor</span>
+						<span>{$_('monitor')}</span>
 						<input
 							title="monitor"
 							type="text"
@@ -199,7 +201,7 @@
 						{#if $errors.monitor}<span class="error">{$errors.monitor}</span>{/if}
 					</label>
 					<label>
-						<span>video Adaptor</span>
+						<span>{$_('video_adaptor')}</span>
 						<input
 							title="videoAdaptor"
 							type="text"
@@ -211,7 +213,7 @@
 						{#if $errors.videoAdaptor}<span class="error">{$errors.videoAdaptor}</span>{/if}
 					</label>
 					<label>
-						<span>disk1</span>
+						<span>{$_('disk_1')}</span>
 						<input
 							title="disk1"
 							type="text"
@@ -223,7 +225,7 @@
 						{#if $errors.disk1}<span class="error">{$errors.disk1}</span>{/if}
 					</label>
 					<label>
-						<span>disk2</span>
+						<span>{$_('disk_2')}</span>
 						<input
 							title="disk2"
 							type="text"
@@ -239,7 +241,7 @@
 		</Accordion>
 		<label>
 			<iconify-icon icon="lucide:notebook-pen"></iconify-icon>
-			<span class="text-end">notes</span>
+			<span class="text-end">{$_('notes')}</span>
 			<picture>
 				<source media="(min-width: )" srcset="" />
 				<img src="" alt="" />
@@ -256,7 +258,7 @@
 		<div class="flex justify-around">
 			<button>
 				<iconify-icon icon="lucide:plus-circle" width="1.2rem" height="1.2rem" class="pr-4"></iconify-icon>
-				Edit Computer
+				{$_('edit_computer')}
 			</button>
 			<button
 				on:click={() => {

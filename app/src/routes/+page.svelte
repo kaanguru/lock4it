@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { goto, invalidateAll } from '$app/navigation';
 	import { setToken } from '$lib/db';
-	import MainPasswordInputArea from '../lib/components/MainPasswordInputArea.svelte';
+	import MainPasswordInputArea from '$lib/components/MainPasswordInputArea.svelte';
 	import CryptoES from 'crypto-es';
 	import { errorStopSubmition, loggedIn } from '$lib/store';
 	import { getToastStore } from '@skeletonlabs/skeleton';
+	import { _ } from 'svelte-i18n';
 	const toastStore = getToastStore();
 	export let data;
 	let plainTextPassword: string;
@@ -29,7 +30,7 @@
 					(document.querySelector('input') as HTMLInputElement).value = '';
 					plainTextPassword = '';
 					toastStore.trigger({
-						message: 'Invalid password! Please try again'
+						message: $_('invalid_p')
 					});
 
 					loggedIn.set(false);
@@ -51,7 +52,7 @@
 
 				toastStore.trigger({
 					background: 'variant-filled-success',
-					message: `You have Locked IT`,
+					message: `${$_('you_have_locked')}`,
 					timeout: 300
 				});
 				loggedIn.set(true);
@@ -62,7 +63,7 @@
 			}
 		} else {
 			toastStore.trigger({
-				message: '⚠️  Passwords do not match.'
+				message: $_('passwords_do_not')
 			});
 		}
 	}
@@ -73,20 +74,20 @@
 
 <div class="orta-kolon">
 	{#if data.firstTime}
-		<h1>Hello stranger!</h1>
+		<h1>{$_('hello_stranger')}</h1>
 		<p>
-			It's your first visit to this IT inventory app. <br />
-			Please set a master password to get started.
+			{$_('first_visit_app')}
+			<br />
+			{$_('please_set_a_mas')}
 		</p>
 		<img src="img/lock4it-logo.png" alt="logo" class="m-auto" />
 		<p>
-			Please, enter a strong password! <br />
-			It will be your
-			<strong>Master Password</strong>
-			after all
+			{$_('please_enter_a_s')}
+			<br />
+			{$_('it_will_be_your')}
 		</p>
 		<form on:submit|preventDefault={saveMasterPass}>
-			<MainPasswordInputArea needsTypoCheck submit="Save Your Master Password" on:update={handleUpdate}
+			<MainPasswordInputArea needsTypoCheck submit={$_('save_your_master')} on:update={handleUpdate}
 			></MainPasswordInputArea>
 		</form>
 	{:else}
@@ -98,7 +99,7 @@
 		</form>
 	{/if}
 	{#if shortPassword}
-		<h4>Try longer password</h4>
+		<h4>{$_('try_longer_passw')}</h4>
 	{/if}
 </div>
 

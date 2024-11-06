@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { errorStopSubmition } from '$lib/store';
 	import { createEventDispatcher } from 'svelte';
+	import { _ } from 'svelte-i18n';
+
 	export let submit: string;
 
 	let plainTextPassword: string;
@@ -32,7 +34,7 @@
 		title="main-password"
 		type={visiblePasswordInputArea ? 'text' : 'password'}
 		bind:value={plainTextPassword}
-		placeholder="Enter master password"
+		placeholder={$_('enter_master_pas')}
 		required
 		autocomplete="new-password"
 		on:input={updateValue}
@@ -49,7 +51,7 @@
 	<div class="input-group input-group-divider grid-cols-[1fr_auto] mt-2">
 		<input
 			type={visiblePasswordInputArea ? 'text' : 'password'}
-			placeholder="Re-Type your password"
+			placeholder={$_('re_type_your_pas')}
 			required
 			autocomplete="new-password"
 			bind:value={controlTextPassword}

@@ -9,6 +9,7 @@
 	import RowsPerPage from '$lib/components/table/RowsPerPage.svelte';
 	import Pagination from '$lib/components/table/Pagination.svelte';
 	import { loggedIn } from '$lib/store';
+	import { _ } from 'svelte-i18n';
 
 	loggedIn.subscribe((v) => {
 		if (!v) {
@@ -25,24 +26,24 @@
 </script>
 
 <div class="max-w-lg flex flex-col">
-	<a href="/computers/add" class="btn variant-soft-primary mb-6" data-sveltekit-preload-data="hover">
-		<span>Add New Computer</span>
+	<a href="/computers/add" class="btn variant-soft-primary mb-8" data-sveltekit-preload-data="hover">
+		<span>{$_('add_new_computer')}</span>
 		<span class="ps-2">
 			<iconify-icon icon="tabler:device-imac-plus" height="2em"></iconify-icon>
 		</span>
 	</a>
-	<h2>Computers</h2>
+	<h2 class="text-center">{$_('computers')}</h2>
 
-	<div class=" overflow-x-auto space-y-2">
+	<div class="p-2 overflow-x-auto space-y-9">
 		<header class="flex justify-between gap-4">
 			<Search {handler} />
 			<RowsPerPage {handler} />
 		</header>
-		<table class="table table-hover table-compact table-auto w-full">
+		<table class="table table-hover table-auto w-full">
 			<thead>
 				<tr>
-					<ThSort {handler} orderBy="name">Name</ThSort>
-					<ThSort {handler} orderBy="ipAddress">Ip Address</ThSort>
+					<ThSort {handler} orderBy="name">{$_('name')}</ThSort>
+					<ThSort {handler} orderBy="ipAddress">{$_('ip_address')}</ThSort>
 				</tr>
 				<tr>
 					<ThFilter {handler} filterBy="name" />
@@ -51,9 +52,9 @@
 			</thead>
 			<tbody>
 				{#each $rows as row}
-					<tr on:click={row.id ? navigateToComputer(row.id) : undefined}>
-						<td>{row.name}</td>
-						<td>{row.ipAddress}</td>
+					<tr class="h-14" on:click={row.id ? navigateToComputer(row.id) : undefined}>
+						<td class="font-semibold px-16">{row.name}</td>
+						<td class="td-ip">{row.ipAddress}</td>
 					</tr>
 				{/each}
 			</tbody>
@@ -64,3 +65,9 @@
 		</footer>
 	</div>
 </div>
+
+<style>
+	.td-ip {
+		@apply border-l-2 border-secondary-50;
+	}
+</style>
