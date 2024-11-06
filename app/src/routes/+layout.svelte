@@ -54,7 +54,7 @@
 >
 	<TabAnchor href="/" selected={$page.url.pathname === '/'} title="$_('home')">
 		<svelte:fragment slot="lead">
-			<img src="/img/lock4it-logo.png" alt="lock4it" class="align-middle mt-4 max-h-14" />
+			<img src="/img/lock4it-logo.png" alt="lock4it" class="align-middle mt-2 max-h-14" />
 		</svelte:fragment>
 	</TabAnchor>
 	{#if computersTabVisible}

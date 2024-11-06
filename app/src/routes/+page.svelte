@@ -91,11 +91,11 @@
 			></MainPasswordInputArea>
 		</form>
 	{:else}
-		<h1>Hello friend!</h1>
+		<h1>{$_('hello_friend')}</h1>
 		<img src="img/lock4it-logo.png" alt="logo" />
-		<p>Enter your Password to go on</p>
+		<p>{$_('enter_your_passw')}</p>
 		<form on:submit|preventDefault={unlock}>
-			<MainPasswordInputArea submit="UnLock" on:update={handleUpdate}></MainPasswordInputArea>
+			<MainPasswordInputArea submit={$_('unlock')} on:update={handleUpdate}></MainPasswordInputArea>
 		</form>
 	{/if}
 	{#if shortPassword}

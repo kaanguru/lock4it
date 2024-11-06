@@ -9,6 +9,7 @@
   "disk_2": "Disk 2",
   "edit_computer": "Edit Computer",
   "enter_master_pas": "Enter master password",
+  "enter_your_passw": "Enter your Password to go on",
   "export_computers": "Export computers Data",
   "files_imported_s": "Files imported successfully!",
   "filter": "Filter",
@@ -17,6 +18,7 @@
   "hardware": "Hardware",
   "has_been_added": "has been added!",
   "has_been_updated": "has been updated!",
+  "hello_friend": "Hello friend!",
   "hello_stranger": "Hello stranger!",
   "here_is_the_list": "Here is the list of computers imported:",
   "home": "Home",
@@ -50,6 +52,7 @@
   "show": "Show",
   "teamviewer": "Teamviewer",
   "try_longer_passw": "Try longer password",
+  "unlock": "UnLock",
   "video_adaptor": "Video Adaptor",
   "you_have_locked": "You have Locked IT"
 }

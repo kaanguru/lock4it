@@ -9,6 +9,7 @@
   "disk_2": "磁盘2",
   "edit_computer": "编辑计算机",
   "enter_master_pas": "输入主密码",
+  "enter_your_passw": "输入您的密码以继续",
   "export_computers": "导出计算机数据",
   "files_imported_s": "文件导入成功！",
   "filter": "筛选",
@@ -17,6 +18,7 @@
   "hardware": "硬件",
   "has_been_added": "已添加！",
   "has_been_updated": "已更新！",
+  "hello_friend": "朋友你好！",
   "hello_stranger": "你好陌生人！",
   "here_is_the_list": "以下是导入的计算机列表：",
   "home": "家",
@@ -50,6 +52,7 @@
   "show": "展示",
   "teamviewer": "Teamviewer 程序",
   "try_longer_passw": "尝试更长的密码",
+  "unlock": "开锁",
   "video_adaptor": "视频适配器",
   "you_have_locked": "您已锁定 IT"
 }

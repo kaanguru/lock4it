@@ -9,6 +9,7 @@
   "disk_2": "القرص 2",
   "edit_computer": "تحرير الكمبيوتر",
   "enter_master_pas": "أدخل كلمة المرور الرئيسية",
+  "enter_your_passw": "أدخل كلمة المرور الخاصة بك للمتابعة",
   "export_computers": "تصدير بيانات أجهزة الكمبيوتر",
   "files_imported_s": "تم استيراد الملفات بنجاح!",
   "filter": "فلتر",
@@ -17,6 +18,7 @@
   "hardware": "الأجهزة",
   "has_been_added": "تمت إضافته!",
   "has_been_updated": "تم تحديثه!",
+  "hello_friend": "مرحبا صديق!",
   "hello_stranger": "مرحبا أيها الغريب!",
   "here_is_the_list": "فيما يلي قائمة بأجهزة الكمبيوتر المستوردة:",
   "home": "بيت",
@@ -50,6 +52,7 @@
   "show": "يعرض",
   "teamviewer": "برنامج تيم فيور",
   "try_longer_passw": "حاول كلمة مرور أطول",
+  "unlock": "فتح",
   "video_adaptor": "محول الفيديو",
   "you_have_locked": "لقد قمت بتأمين تكنولوجيا المعلومات"
 }
