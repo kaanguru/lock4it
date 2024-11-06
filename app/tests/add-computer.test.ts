@@ -5,46 +5,23 @@ import { faker } from '@faker-js/faker';
 
 const mockData = generateMock(_computerSchema);
 let firstRun = true;
-let loggedInUser = false;
+let loggedIn = false;
 const mockPass = 'testPass';
 test.beforeEach(async ({ page }) => {
-	if (firstRun) {
-		await page.goto('/');
-		await page.getByPlaceholder('Enter master password').click();
-		await page.getByPlaceholder('Enter master password').fill('testPass');
-		await page.getByPlaceholder('Enter master password').press('Tab');
-		await page.getByRole('button').nth(1).press('Tab');
-		await page.getByPlaceholder('Re-Type your password').fill('TestPass');
-		await page.getByPlaceholder('Re-Type your password').press('Tab');
-		await page.getByRole('button').nth(2).press('Tab');
-		await page.getByRole('button', { name: 'Save Your Master Password' }).click();
-		await page.getByLabel('Dismiss toast').click();
-		await page.getByPlaceholder('Enter master password').click();
-		await page.getByPlaceholder('Enter master password').fill(mockPass);
-		await page.getByPlaceholder('Enter master password').press('Tab');
-		await page.getByPlaceholder('Re-Type your password').click();
-		await page.getByPlaceholder('Re-Type your password').fill(mockPass);
-		await page.getByRole('button').nth(2).click();
-		await page.getByRole('button').nth(2).click();
-		await page.getByRole('button', { name: 'Save Your Master Password' }).click();
-		firstRun = false;
-		await page.goto('/');
-		await page.getByPlaceholder('Enter master password').click();
-		await page.getByPlaceholder('Enter master password').fill(mockPass);
-		await page.getByRole('button', { name: 'UnLock' }).click();
-		loggedInUser = true;
-	} else {
-		await page.goto('/');
-		await page.getByPlaceholder('Enter master password').fill(mockPass);
-		await page.getByRole('button', { name: 'UnLock' }).click();
-		loggedInUser = true;
+	const friend = await page.getByRole('heading', { name: 'Hello friend!' }).first().isVisible();
+	if (friend) {
+		await logIn(page);
+	} else if (firstRun) {
+		await createMasterPass(page);
 	}
-	if (!loggedInUser) {
-		await page.getByPlaceholder('Enter master password').fill(mockPass);
-		await page.getByRole('button', { name: 'UnLock' }).click();
-		await page.goto('/computers/add');
-		await page.getByTitle('Name').fill(mockData.name);
+
+	if (!loggedIn) {
+		await logIn(page);
 	}
+	if (friend) {
+		await logIn(page);
+	}
+	await fillName(page);
 });
 
 test.describe('Tests expected to pass', () => {
@@ -53,7 +30,6 @@ test.describe('Tests expected to pass', () => {
 		await fillField(page, 'IP Address', faker.internet.ipv4());
 		await fillField(page, 'Mac Address', faker.internet.mac());
 		await page.getByRole('button', { name: 'Network' }).click();
-
 		await page.getByRole('button', { name: 'Hardware' }).click();
 		// Conditionally fill fields based on mockData
 		const titlesAndValues = [
@@ -67,6 +43,12 @@ test.describe('Tests expected to pass', () => {
 		for (const [title, value] of titlesAndValues) {
 			await fillField(page, title, value);
 		}
+		// scrool page down
+		await page.evaluate(() => {
+			window.scrollBy(0, window.innerHeight);
+			return Promise.resolve();
+		});
+
 		await page.getByRole('button', { name: 'Add Computer' }).click();
 		// await page.getByLabel('Dismiss toast').click();
 		await expect(page.getByRole('paragraph').getByText(mockData.name)).toBeVisible();
@@ -75,8 +57,12 @@ test.describe('Tests expected to pass', () => {
 test.describe('Checks of wrong enterence', () => {
 	test('add ✅ name / ❌ ip ', async ({ page }) => {
 		await page.getByRole('button', { name: 'Network' }).click();
-
 		await page.getByTitle('IP Address').fill('22');
+		// scrool page down
+		await page.evaluate(() => {
+			window.scrollBy(0, window.innerHeight);
+			return Promise.resolve();
+		});
 		await page.getByRole('button', { name: 'Add Computer' }).click();
 		await expect(page.locator('.error >> text=Invalid ip')).toBeVisible();
 	});
@@ -85,11 +71,53 @@ test.describe('Checks of wrong enterence', () => {
 		await page.getByRole('button', { name: 'Network' }).click();
 		await page.getByTitle('IP Address').fill(faker.internet.ipv4());
 		await page.getByPlaceholder('Mac Address').fill('wk-22-22');
+		// scrool page down
+		await page.evaluate(() => {
+			window.scrollBy(0, window.innerHeight);
+			return Promise.resolve();
+		});
 		await page.getByRole('button', { name: 'Add Computer' }).click();
 		await expect(page.locator('.error >> text=Invalid')).toBeVisible();
 	});
 });
 
+async function createMasterPass(page: Page) {
+	await page.goto('/');
+	await page.getByPlaceholder('Enter master password').click();
+	await page.getByPlaceholder('Enter master password').fill('testPass');
+	await page.getByPlaceholder('Enter master password').press('Tab');
+	await page.getByRole('button').nth(1).press('Tab');
+	await page.getByPlaceholder('Re-Type your password').fill('TestPass');
+	await page.getByPlaceholder('Re-Type your password').press('Tab');
+	await page.getByRole('button').nth(2).press('Tab');
+	await page.getByRole('button', { name: 'Save Your Master Password' }).click();
+	await page.getByLabel('Dismiss toast').click();
+	await page.getByPlaceholder('Enter master password').click();
+	await page.getByPlaceholder('Enter master password').fill(mockPass);
+	await page.getByPlaceholder('Enter master password').press('Tab');
+	await page.getByPlaceholder('Re-Type your password').click();
+	await page.getByPlaceholder('Re-Type your password').fill(mockPass);
+	await page.getByRole('button').nth(2).click();
+	await page.getByRole('button', { name: 'Save Your Master Password' }).click();
+	firstRun = false;
+	loggedIn = true;
+}
+
 async function fillField(page: Page, title, value: string | number | null) {
 	await page.getByTitle(title).fill(String(value));
+}
+async function logIn(page: Page) {
+	await page.getByPlaceholder('Enter master password').click();
+	await page.getByPlaceholder('Enter master password').fill(mockPass);
+	await page.getByRole('button', { name: 'UnLock' }).click();
+	loggedIn = true;
+	await page.goto('/computers/add');
+}
+async function fillName(page) {
+	const friend = await page.getByRole('heading', { name: 'Hello friend!' }).first().isVisible();
+	if (friend) {
+		await logIn(page);
+	}
+	await page.getByTitle('Name').click();
+	await page.getByTitle('Name').fill(mockData.name);
 }

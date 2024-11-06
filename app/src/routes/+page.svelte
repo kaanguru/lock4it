@@ -29,7 +29,7 @@
 					(document.querySelector('input') as HTMLInputElement).value = '';
 					plainTextPassword = '';
 					toastStore.trigger({
-						message: 'Invalid password,Please try again'
+						message: 'Invalid password! Please try again'
 					});
 
 					loggedIn.set(false);
@@ -50,7 +50,9 @@
 				setToken(hash.toString(CryptoES.enc.Base64));
 
 				toastStore.trigger({
-					message: `You have Locked IT`
+					background: 'variant-filled-success',
+					message: `You have Locked IT`,
+					timeout: 300
 				});
 				loggedIn.set(true);
 				invalidateAll();

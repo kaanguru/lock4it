@@ -11,6 +11,8 @@
 			await addComputer(form.data);
 			setMessage(form, `Computer: ${form.data.name} has been added!`);
 			toastStore.trigger({
+				timeout: 600,
+				background: 'variant-filled-success',
 				message: `Computer: ${form.data.name} has been added!`
 			});
 		} else {
