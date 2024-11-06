@@ -54,7 +54,9 @@
 				{#each $rows as row}
 					<tr class="h-14" on:click={row.id ? navigateToComputer(row.id) : undefined}>
 						<td class="font-semibold px-16">{row.name}</td>
-						<td class="td-ip">{row.ipAddress}</td>
+						{#if row.ipAddress}
+							<td class="td-ip">{row.ipAddress}</td>
+						{/if}
 					</tr>
 				{/each}
 			</tbody>
@@ -68,6 +70,6 @@
 
 <style>
 	.td-ip {
-		@apply border-l-2 border-secondary-50;
+		@apply border-s-2 border-secondary-50;
 	}
 </style>

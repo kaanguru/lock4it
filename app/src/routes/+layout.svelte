@@ -13,6 +13,8 @@
 	import ru from '$lib/i18n/locales/ru.json';
 	import tr from '$lib/i18n/locales/tr.json';
 	import zh from '$lib/i18n/locales/zh.json';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
+
 	addMessages('ar', ar);
 	addMessages('en', en);
 	addMessages('ru', ru);
@@ -76,4 +78,7 @@
 <!-- Page Route Content -->
 <div class="flex justify-center">
 	<slot />
+</div>
+<div class="flex justify-end mt-6 p-3">
+	<LightSwitch />
 </div>

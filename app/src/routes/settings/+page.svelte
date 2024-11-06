@@ -69,6 +69,17 @@
 		</div>
 	</div>
 </div>
+<div>
+	<button
+		type="button"
+		class="btn btn-sm variant-filled"
+		on:click={() => window.location.reload()}
+		aria-label="Reload page to LockIT"
+	>
+		<iconify-icon icon="fxemoji:lock" class="pe-2"></iconify-icon>
+		Lock
+	</button>
+</div>
 
 <style>
 	button {

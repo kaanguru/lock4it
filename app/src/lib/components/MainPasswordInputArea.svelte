@@ -66,5 +66,6 @@
 	</div>
 {/if}
 <button type="submit" on:click={() => stopSubmitionIfTypo()} class="btn variant-filled-secondary">
+	<iconify-icon icon="noto:unlocked" width="1.3rem" height="1.3rem" class="pe-4"></iconify-icon>
 	{submit}
 </button>

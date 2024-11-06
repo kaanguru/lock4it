@@ -72,7 +72,7 @@
 	}
 </script>
 
-<div class="orta-kolon">
+<div class="middle-container">
 	{#if data.firstTime}
 		<h1>{$_('hello_stranger')}</h1>
 		<p>
@@ -107,7 +107,7 @@
 	img {
 		@apply py-9;
 	}
-	.orta-kolon {
+	.middle-container {
 		@apply flex flex-col text-center;
 	}
 	form {
