@@ -1,7 +1,5 @@
 {
-	"prettier.documentSelectors": [
-		"**/*.svelte"
-	],
+	"prettier.documentSelectors": ["**/*.svelte"],
 	"tailwindCSS.classAttributes": [
 		"class",
 		"accent",
@@ -116,5 +114,14 @@
 		"transition",
 		"width",
 		"zIndex"
-	]
+	],
+	"i18n-ally.localesPaths": ["src/lib/i18n", "src/lib/i18n/locales"],
+	"i18n-ally.keystyle": "flat",
+	"i18n-ally.extract.ignoredByFiles": {
+		"src\\routes\\+layout.svelte": ["Settings"],
+		"src\\lib\\components\\AddComputerForm.svelte": [
+			" {\r\n\t\t\t\t\tgoto('/computers');\r\n\t\t\t\t}}\r\n\t\t\t\taria-label=\"cancel\"\r\n\t\t\t\tclass=\"text-error-200\"\r\n\t\t\t>\r\n\t\t\t\t"
+		]
+	},
+	"i18n-ally.extract.ignored": ["✅"]
 }

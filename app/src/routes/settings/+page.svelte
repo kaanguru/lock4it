@@ -4,6 +4,7 @@
 	import { PrepareForExportThenSave } from '$lib/ComputerExporter';
 	import { decryptData } from '$lib/crypt';
 	import { version } from '$app/environment';
+	import { _ } from 'svelte-i18n';
 
 	let computers: Computer[] = [];
 	let saver: PrepareForExportThenSave;
@@ -38,29 +39,34 @@
 	}
 </script>
 
-<span class="text-xs">Lock4IT v{version}</span>
-<div id="import">
-	{#if computers.length == 0}
-		<h3>No computers found. Please import a backup file first.</h3>
-	{:else}
-		<button type="button" on:click={() => saver.handleExport()}>Export computers Data</button>
-		<p>Click the "Export computers Data" button to export your data.</p>
-	{/if}
-
-	<div id="upload">
-		<button type="button" on:click={() => handleImport()}>Import your backup file</button>
-		<p>Please upload your backup file (.bak) to restore your data.</p>
-		{#if imported}
-			<p class="success">Files imported successfully!</p>
-			{#if computers.length > 0}
-				<p>Here is the list of computers imported:</p>
-				<ul>
-					{#each computers as computer}
-						<li>{computer.name}</li>
-					{/each}
-				</ul>
-			{/if}
+<div>
+	<span class="text-xs">
+		<img src="/img/lock4it-logo-bw.webp" alt="Lock4IT" />
+		v{version}
+	</span>
+	<div id="import">
+		{#if computers.length == 0}
+			<h3>{$_('no_computers_fou')}</h3>
+		{:else}
+			<button type="button" on:click={() => saver.handleExport()}>{$_('export_computers')}</button>
+			<p>{$_('click_the_export')}</p>
 		{/if}
+
+		<div id="upload">
+			<button type="button" on:click={() => handleImport()}>{$_('import_your_back')}</button>
+			<p>{$_('please_upload_yo')}</p>
+			{#if imported}
+				<p class="success">{$_('files_imported_s')}</p>
+				{#if computers.length > 0}
+					<p>{$_('here_is_the_list')}</p>
+					<ul>
+						{#each computers as computer}
+							<li>{computer.name}</li>
+						{/each}
+					</ul>
+				{/if}
+			{/if}
+		</div>
 	</div>
 </div>
 
