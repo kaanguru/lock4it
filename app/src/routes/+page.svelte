@@ -94,7 +94,10 @@
 		</form>
 	{:else}
 		<h1>{$_('hello_friend')}</h1>
-		<img src="img/lock4it-logo.png" alt="logo" />
+		<span>
+			<img src="img/lock4it-logo-bw.webp" class="h-7 w-28" alt="Lock4IT Locked it" />
+			has Locked it
+		</span>
 		<p>{$_('enter_your_passw')}</p>
 		<form onsubmit={preventDefault(unlock)}>
 			<MainPasswordInputArea submit={$_('unlock')} on:update={handleUpdate}></MainPasswordInputArea>
@@ -106,9 +109,6 @@
 </div>
 
 <style>
-	img {
-		@apply py-9;
-	}
 	.middle-container {
 		@apply flex flex-col text-center;
 	}
