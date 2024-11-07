@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { preventDefault, createBubbler } from 'svelte/legacy';
+
+	const bubble = createBubbler();
 	import { onMount } from 'svelte';
 	import { setMessage, superForm, defaults, dateProxy } from 'sveltekit-superforms/client';
 	import { _computerSchema, editComputer, type Computer } from '$lib/db';
@@ -15,7 +18,7 @@
 		validators: zod(_computerSchema),
 		onUpdate: handleSubmit
 	});
-	let computerGettingEdited;
+	let computerGettingEdited = $state();
 	selectedComputer.subscribe((sc) => (computerGettingEdited = sc));
 	onMount(() => {
 		prefillForm(computerGettingEdited);
@@ -31,7 +34,7 @@
 	}
 
 	const remoteConnectionSoftwares = [$_('anydesk'), $_('teamviewer'), 'RustDesk', $_('parsec'), $_('other')];
-	let selectedRemoteConnectionSoftware = '';
+	let selectedRemoteConnectionSoftware = $state('');
 	function updateSelectedRemoteConnectionSoftware(selSof: string): void {
 		selectedRemoteConnectionSoftware = selSof;
 		$form.removeConnectionSoftware = selSof;
@@ -65,178 +68,190 @@
 		</label>
 		<Accordion class="btn-group-vertical variant-ghost-primary">
 			<AccordionItem>
-				<svelte:fragment slot="summary">
-					<iconify-icon icon="lucide:cable"></iconify-icon>
-					{$_('remote_connectio')}
-				</svelte:fragment>
-				<svelte:fragment slot="content">
-					<input title="removeConnectionSoftware" type="hidden" bind:value={$form.removeConnectionSoftware} />
-					{#each remoteConnectionSoftwares as sof}
-						<button
-							class="chip {selectedRemoteConnectionSoftware === sof ? 'variant-filled' : 'variant-soft'}"
-							on:click|preventDefault={() => {
+				{#snippet summary()}
+							
+						<iconify-icon icon="lucide:cable"></iconify-icon>
+						{$_('remote_connectio')}
+					
+							{/snippet}
+				{#snippet content()}
+							
+						<input title="removeConnectionSoftware" type="hidden" bind:value={$form.removeConnectionSoftware} />
+						{#each remoteConnectionSoftwares as sof}
+							<button
+								class="chip {selectedRemoteConnectionSoftware === sof ? 'variant-filled' : 'variant-soft'}"
+								onclick={preventDefault(() => {
 								updateSelectedRemoteConnectionSoftware(sof);
-							}}
-							on:keypress
-						>
-							{#if selectedRemoteConnectionSoftware === sof}<span>✅</span>{/if}
-							<span>{sof}</span>
-						</button>
-					{/each}
-					<label>
-						<span>{$_('remote_connectio-0')}</span>
-						<input
-							title="remoteConnectionId"
-							type="text"
-							class={$errors.remoteConnectionId ? 'input-error' : undefined}
-							aria-invalid={$errors.remoteConnectionId ? 'true' : undefined}
-							bind:value={$form.remoteConnectionId}
-							{...$constraints.remoteConnectionId}
-						/>
-						{#if $errors.remoteConnectionId}<span class="error">{$errors.remoteConnectionId}</span>{/if}
-					</label>
-					<label>
-						<span>{$_('remote_connectio-1')}</span>
-						<input
-							title="remoteConnectionPass"
-							type="password"
-							class={$errors.remoteConnectionPass ? 'input-error' : undefined}
-							aria-invalid={$errors.remoteConnectionPass ? 'true' : undefined}
-							bind:value={$form.remoteConnectionPass}
-							{...$constraints.remoteConnectionPass}
-						/>
-						{#if $errors.remoteConnectionPass}<span class="error">{$errors.remoteConnectionPass}</span>{/if}
-					</label>
-				</svelte:fragment>
+							})}
+								onkeypress={bubble('keypress')}
+							>
+								{#if selectedRemoteConnectionSoftware === sof}<span>✅</span>{/if}
+								<span>{sof}</span>
+							</button>
+						{/each}
+						<label>
+							<span>{$_('remote_connectio-0')}</span>
+							<input
+								title="remoteConnectionId"
+								type="text"
+								class={$errors.remoteConnectionId ? 'input-error' : undefined}
+								aria-invalid={$errors.remoteConnectionId ? 'true' : undefined}
+								bind:value={$form.remoteConnectionId}
+								{...$constraints.remoteConnectionId}
+							/>
+							{#if $errors.remoteConnectionId}<span class="error">{$errors.remoteConnectionId}</span>{/if}
+						</label>
+						<label>
+							<span>{$_('remote_connectio-1')}</span>
+							<input
+								title="remoteConnectionPass"
+								type="password"
+								class={$errors.remoteConnectionPass ? 'input-error' : undefined}
+								aria-invalid={$errors.remoteConnectionPass ? 'true' : undefined}
+								bind:value={$form.remoteConnectionPass}
+								{...$constraints.remoteConnectionPass}
+							/>
+							{#if $errors.remoteConnectionPass}<span class="error">{$errors.remoteConnectionPass}</span>{/if}
+						</label>
+					
+							{/snippet}
 			</AccordionItem>
 			<AccordionItem>
-				<svelte:fragment slot="summary">
-					<iconify-icon icon="lucide:network"></iconify-icon>
-					Network
-				</svelte:fragment>
-				<svelte:fragment slot="content">
-					<label>
-						<span>{$_('ip_address')}</span>
-						<input
-							title="IP Address"
-							type="text"
-							placeholder="IP Address"
-							class={$errors.ipAddress ? 'input-error' : undefined}
-							aria-invalid={$errors.ipAddress ? 'true' : undefined}
-							bind:value={$form.ipAddress}
-							{...$constraints.ipAddress}
-						/>
-						{#if $errors.ipAddress}<span class="error">{$errors.ipAddress}</span>{/if}
-					</label>
-					<label>
-						<span>{$_('mac_address')}</span>
-						<input
-							title="Mac Address"
-							type="text"
-							placeholder="Mac Address"
-							class={$errors.macAddress ? 'input-error' : undefined}
-							aria-invalid={$errors.macAddress ? 'true' : undefined}
-							bind:value={$form.macAddress}
-							{...$constraints.macAddress}
-						/>
-						{#if $errors.macAddress}<span class="error">{$errors.macAddress}</span>{/if}
-					</label>
-				</svelte:fragment>
+				{#snippet summary()}
+							
+						<iconify-icon icon="lucide:network"></iconify-icon>
+						Network
+					
+							{/snippet}
+				{#snippet content()}
+							
+						<label>
+							<span>{$_('ip_address')}</span>
+							<input
+								title="IP Address"
+								type="text"
+								placeholder="IP Address"
+								class={$errors.ipAddress ? 'input-error' : undefined}
+								aria-invalid={$errors.ipAddress ? 'true' : undefined}
+								bind:value={$form.ipAddress}
+								{...$constraints.ipAddress}
+							/>
+							{#if $errors.ipAddress}<span class="error">{$errors.ipAddress}</span>{/if}
+						</label>
+						<label>
+							<span>{$_('mac_address')}</span>
+							<input
+								title="Mac Address"
+								type="text"
+								placeholder="Mac Address"
+								class={$errors.macAddress ? 'input-error' : undefined}
+								aria-invalid={$errors.macAddress ? 'true' : undefined}
+								bind:value={$form.macAddress}
+								{...$constraints.macAddress}
+							/>
+							{#if $errors.macAddress}<span class="error">{$errors.macAddress}</span>{/if}
+						</label>
+					
+							{/snippet}
 			</AccordionItem>
 			<AccordionItem>
-				<svelte:fragment slot="summary">
-					<iconify-icon icon="lucide:cpu"></iconify-icon>
-					{$_('hardware')}
-				</svelte:fragment>
-				<svelte:fragment slot="content">
-					<label>
-						<span>{$_('memory_ram_in_gb')}</span>
-						<input
-							title="Memory"
-							type="number"
-							placeholder="8"
-							class={$errors.memory ? 'input-error' : undefined}
-							aria-invalid={$errors.memory ? 'true' : undefined}
-							bind:value={$form.memory}
-							{...$constraints.memory}
-						/>
-						{#if $errors.memory}<span class="error">{$errors.memory}</span>{/if}
-					</label>
-					<label>
-						<span>{$_('processor')}</span>
-						<input
-							title="processor"
-							type="text"
-							placeholder="i7"
-							class={$errors.processor ? 'input-error' : undefined}
-							aria-invalid={$errors.processor ? 'true' : undefined}
-							bind:value={$form.processor}
-							{...$constraints.processor}
-						/>
-						{#if $errors.processor}<span class="error">{$errors.processor}</span>{/if}
-					</label>
-					<label>
-						<span>{$_('mother_board')}</span>
-						<input
-							title="motherBoard"
-							type="text"
-							placeholder="MSI AS"
-							class={$errors.motherBoard ? 'input-error' : undefined}
-							aria-invalid={$errors.motherBoard ? 'true' : undefined}
-							bind:value={$form.motherBoard}
-							{...$constraints.motherBoard}
-						/>
-						{#if $errors.motherBoard}<span class="error">{$errors.motherBoard}</span>{/if}
-					</label>
-					<label>
-						<span>{$_('monitor')}</span>
-						<input
-							title="monitor"
-							type="text"
-							class={$errors.monitor ? 'input-error' : undefined}
-							aria-invalid={$errors.monitor ? 'true' : undefined}
-							bind:value={$form.monitor}
-							{...$constraints.monitor}
-						/>
-						{#if $errors.monitor}<span class="error">{$errors.monitor}</span>{/if}
-					</label>
-					<label>
-						<span>{$_('video_adaptor')}</span>
-						<input
-							title="videoAdaptor"
-							type="text"
-							class={$errors.videoAdaptor ? 'input-error' : undefined}
-							aria-invalid={$errors.videoAdaptor ? 'true' : undefined}
-							bind:value={$form.videoAdaptor}
-							{...$constraints.videoAdaptor}
-						/>
-						{#if $errors.videoAdaptor}<span class="error">{$errors.videoAdaptor}</span>{/if}
-					</label>
-					<label>
-						<span>{$_('disk_1')}</span>
-						<input
-							title="disk1"
-							type="text"
-							class={$errors.disk1 ? 'input-error' : undefined}
-							aria-invalid={$errors.disk1 ? 'true' : undefined}
-							bind:value={$form.disk1}
-							{...$constraints.disk1}
-						/>
-						{#if $errors.disk1}<span class="error">{$errors.disk1}</span>{/if}
-					</label>
-					<label>
-						<span>{$_('disk_2')}</span>
-						<input
-							title="disk2"
-							type="text"
-							class={$errors.disk2 ? 'input-error' : undefined}
-							aria-invalid={$errors.disk2 ? 'true' : undefined}
-							bind:value={$form.disk2}
-							{...$constraints.disk2}
-						/>
-						{#if $errors.disk2}<span class="error">{$errors.disk2}</span>{/if}
-					</label>
-				</svelte:fragment>
+				{#snippet summary()}
+							
+						<iconify-icon icon="lucide:cpu"></iconify-icon>
+						{$_('hardware')}
+					
+							{/snippet}
+				{#snippet content()}
+							
+						<label>
+							<span>{$_('memory_ram_in_gb')}</span>
+							<input
+								title="Memory"
+								type="number"
+								placeholder="8"
+								class={$errors.memory ? 'input-error' : undefined}
+								aria-invalid={$errors.memory ? 'true' : undefined}
+								bind:value={$form.memory}
+								{...$constraints.memory}
+							/>
+							{#if $errors.memory}<span class="error">{$errors.memory}</span>{/if}
+						</label>
+						<label>
+							<span>{$_('processor')}</span>
+							<input
+								title="processor"
+								type="text"
+								placeholder="i7"
+								class={$errors.processor ? 'input-error' : undefined}
+								aria-invalid={$errors.processor ? 'true' : undefined}
+								bind:value={$form.processor}
+								{...$constraints.processor}
+							/>
+							{#if $errors.processor}<span class="error">{$errors.processor}</span>{/if}
+						</label>
+						<label>
+							<span>{$_('mother_board')}</span>
+							<input
+								title="motherBoard"
+								type="text"
+								placeholder="MSI AS"
+								class={$errors.motherBoard ? 'input-error' : undefined}
+								aria-invalid={$errors.motherBoard ? 'true' : undefined}
+								bind:value={$form.motherBoard}
+								{...$constraints.motherBoard}
+							/>
+							{#if $errors.motherBoard}<span class="error">{$errors.motherBoard}</span>{/if}
+						</label>
+						<label>
+							<span>{$_('monitor')}</span>
+							<input
+								title="monitor"
+								type="text"
+								class={$errors.monitor ? 'input-error' : undefined}
+								aria-invalid={$errors.monitor ? 'true' : undefined}
+								bind:value={$form.monitor}
+								{...$constraints.monitor}
+							/>
+							{#if $errors.monitor}<span class="error">{$errors.monitor}</span>{/if}
+						</label>
+						<label>
+							<span>{$_('video_adaptor')}</span>
+							<input
+								title="videoAdaptor"
+								type="text"
+								class={$errors.videoAdaptor ? 'input-error' : undefined}
+								aria-invalid={$errors.videoAdaptor ? 'true' : undefined}
+								bind:value={$form.videoAdaptor}
+								{...$constraints.videoAdaptor}
+							/>
+							{#if $errors.videoAdaptor}<span class="error">{$errors.videoAdaptor}</span>{/if}
+						</label>
+						<label>
+							<span>{$_('disk_1')}</span>
+							<input
+								title="disk1"
+								type="text"
+								class={$errors.disk1 ? 'input-error' : undefined}
+								aria-invalid={$errors.disk1 ? 'true' : undefined}
+								bind:value={$form.disk1}
+								{...$constraints.disk1}
+							/>
+							{#if $errors.disk1}<span class="error">{$errors.disk1}</span>{/if}
+						</label>
+						<label>
+							<span>{$_('disk_2')}</span>
+							<input
+								title="disk2"
+								type="text"
+								class={$errors.disk2 ? 'input-error' : undefined}
+								aria-invalid={$errors.disk2 ? 'true' : undefined}
+								bind:value={$form.disk2}
+								{...$constraints.disk2}
+							/>
+							{#if $errors.disk2}<span class="error">{$errors.disk2}</span>{/if}
+						</label>
+					
+							{/snippet}
 			</AccordionItem>
 		</Accordion>
 		<label>
@@ -261,7 +276,7 @@
 				{$_('edit_computer')}
 			</button>
 			<button
-				on:click={() => {
+				onclick={() => {
 					modalStore.close();
 				}}
 				aria-label="cancel"

@@ -6,9 +6,9 @@
 	import { version } from '$app/environment';
 	import { _ } from 'svelte-i18n';
 
-	let computers: Computer[] = [];
-	let saver: PrepareForExportThenSave;
-	let imported: boolean = false;
+	let computers: Computer[] = $state([]);
+	let saver: PrepareForExportThenSave = $state();
+	let imported: boolean = $state(false);
 	onMount(async () => {
 		computers = await exportComputersData();
 		saver = new PrepareForExportThenSave(computers);
@@ -48,12 +48,12 @@
 		{#if computers.length == 0}
 			<h3>{$_('no_computers_fou')}</h3>
 		{:else}
-			<button type="button" on:click={() => saver.handleExport()}>{$_('export_computers')}</button>
+			<button type="button" onclick={() => saver.handleExport()}>{$_('export_computers')}</button>
 			<p>{$_('click_the_export')}</p>
 		{/if}
 
 		<div id="upload">
-			<button type="button" on:click={() => handleImport()}>{$_('import_your_back')}</button>
+			<button type="button" onclick={() => handleImport()}>{$_('import_your_back')}</button>
 			<p>{$_('please_upload_yo')}</p>
 			{#if imported}
 				<p class="success">{$_('files_imported_s')}</p>
@@ -73,7 +73,7 @@
 	<button
 		type="button"
 		class="btn btn-sm variant-filled"
-		on:click={() => window.location.reload()}
+		onclick={() => window.location.reload()}
 		aria-label="Reload page to LockIT"
 	>
 		<iconify-icon icon="fxemoji:lock" class="pe-2"></iconify-icon>

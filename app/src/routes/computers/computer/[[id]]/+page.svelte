@@ -11,7 +11,7 @@
 		}
 	});
 	const modalStore = getModalStore();
-	export let data;
+	let { data } = $props();
 	selectedComputer.set(data.selectedComputer);
 	const editModal: ModalSettings = {
 		type: 'component',
@@ -44,12 +44,12 @@
 			<button
 				type="button"
 				class="btn-icon variant-filled mx-2"
-				on:click={() => modalStore.trigger(editModal)}
+				onclick={() => modalStore.trigger(editModal)}
 				aria-label="Edit"
 			>
 				<iconify-icon icon="lucide:edit"></iconify-icon>
 			</button>
-			<button type="button" class="btn-icon variant-filled" on:click={() => deleteAndTurntoList()} aria-label="Delete">
+			<button type="button" class="btn-icon variant-filled" onclick={() => deleteAndTurntoList()} aria-label="Delete">
 				<iconify-icon icon="lucide:trash"></iconify-icon>
 			</button>
 		</footer>

@@ -14,6 +14,11 @@
 	import tr from '$lib/i18n/locales/tr.json';
 	import zh from '$lib/i18n/locales/zh.json';
 	import { LightSwitch } from '@skeletonlabs/skeleton';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 
 	addMessages('ar', ar);
 	addMessages('en', en);
@@ -26,7 +31,7 @@
 		initialLocale: getLocaleFromNavigator()
 	});
 
-	let computersTabVisible = false;
+	let computersTabVisible = $state(false);
 
 	loggedIn.subscribe((v) => {
 		if (v) {
@@ -55,21 +60,27 @@
 	class="bg-surface-100-800-token w-full mb-6"
 >
 	<TabAnchor href="/" selected={$page.url.pathname === '/'} title="$_('home')">
-		<svelte:fragment slot="lead">
-			<img src="/img/lock4it-logo.png" alt="lock4it" class="align-middle mt-2 max-h-14" />
-		</svelte:fragment>
+		{#snippet lead()}
+			
+				<img src="/img/lock4it-logo.png" alt="lock4it" class="align-middle mt-2 max-h-14" />
+			
+			{/snippet}
 	</TabAnchor>
 	{#if computersTabVisible}
 		<TabAnchor href="/computers" title="$_('computers')" selected={$page.url.pathname === '/computers'}>
-			<svelte:fragment slot="lead">
-				<iconify-icon icon="fxemoji:threenetworkedcomputers" height="2em"></iconify-icon>
-			</svelte:fragment>
+			{#snippet lead()}
+					
+					<iconify-icon icon="fxemoji:threenetworkedcomputers" height="2em"></iconify-icon>
+				
+					{/snippet}
 			<span>{$_('computers')}</span>
 		</TabAnchor>
 		<TabAnchor href="/settings" title="Settings" selected={$page.url.pathname === '/settings'}>
-			<svelte:fragment slot="lead">
-				<iconify-icon icon="arcticons:quick-settings" height="2em"></iconify-icon>
-			</svelte:fragment>
+			{#snippet lead()}
+					
+					<iconify-icon icon="arcticons:quick-settings" height="2em"></iconify-icon>
+				
+					{/snippet}
 			<span>{$_('settings')}</span>
 		</TabAnchor>
 	{/if}
@@ -77,7 +88,7 @@
 
 <!-- Page Route Content -->
 <div class="flex justify-center">
-	<slot />
+	{@render children?.()}
 </div>
 <div class="flex justify-end mt-6 p-3">
 	<LightSwitch />
