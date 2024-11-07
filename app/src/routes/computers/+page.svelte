@@ -53,7 +53,7 @@
 			<tbody>
 				{#each $rows as row}
 					<tr class="h-14" on:click={row.id ? navigateToComputer(row.id) : undefined}>
-						<td class="font-semibold px-16">{row.name}</td>
+						<td class="font-semibold flex items-center">{row.name}</td>
 						{#if row.ipAddress}
 							<td class="td-ip">{row.ipAddress}</td>
 						{/if}
