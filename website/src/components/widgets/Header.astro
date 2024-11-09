@@ -91,7 +91,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
       ]}
     >
       <div id="langs">
-        <a href={currentPath == '/' ? './tr' : './'} target="_self"> {currentPath == '/' ? 'TR' : 'EN'} </a>
+        <a href={currentPath == '/' ? './tr' : '/'} target="_self"> {currentPath == '/' ? 'TR' : 'EN'} </a>
       </div>
       <div class="items-center flex justify-between w-full md:w-auto">
         <div class="flex">
