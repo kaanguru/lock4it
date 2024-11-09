@@ -1,6 +1,6 @@
 site:
   name: lock4it
-  site: 'https://lock4it.vercel.app'
+  site: 'https://www-lock4it.netlify.app/'
   base: '/'
   trailingSlash: false
 
@@ -32,36 +32,6 @@ i18n:
   textDirection: ltr
 
 apps:
-  blog:
-    isEnabled: false
-    postsPerPage: 6
-
-    post:
-      isEnabled: false
-      permalink: '/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
-      robots:
-        index: true
-
-    list:
-      isEnabled: false
-      pathname: 'blog' # Blog main path, you can change this to "articles" (/articles)
-      robots:
-        index: true
-
-    category:
-      isEnabled: false
-      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
-      robots:
-        index: true
-
-    tag:
-      isEnabled: trfalseue
-      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
-      robots:
-        index: false
-
-    isRelatedPostsEnabled: false
-    relatedPostsCount: 4
 
 analytics:
   vendors:
