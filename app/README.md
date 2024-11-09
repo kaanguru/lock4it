@@ -10,7 +10,7 @@ Offline hardware and software asset management tool for IT professionals.
 
 ## Demo
 
-Insert gif or link to demo
+![Demo](./demo/lock4it0912.gif)
 
 ## Features
 
@@ -19,40 +19,36 @@ Insert gif or link to demo
 - Export and back-up encrypted data
 - Master Password
 
-## Run Locally
+## Develop your own 4IT Inventory
 
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  degit kaanguru/lock4it/app lock4it
+```
+
+or
+
+```bash
+git clone https://github.com/kaanguru/lock4it.git --depth 1 --branch main --single-branch
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd lock4it
 ```
 
 Install dependencies
 
 ```bash
-  npm install
+  bun install
 ```
 
 Start the server
 
 ```bash
-  npm run start
-```
-
-## Usage/Examples
-
-```javascript
-import Component from 'my-project';
-
-function App() {
-	return <Component />;
-}
+  bun dev
 ```
 
 ## Deployment
@@ -65,23 +61,21 @@ To deploy this project run
 
 ## Documentation
 
-[Documentation](https://linktodocumentation)
+[Documentation](https://www-lock4it.netlify.app/)
 
 ## Roadmap
 
-- Additional browser support
+✅ Additional browser support
 
-- Add more integrations
+✅ Add more integrations
 
-- Desktop
+✅ Desktop
+
+⌛ Network discovery
 
 ## Contributing
 
-Contributions are always welcome!
-
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
+We welcome contributions to the project in the form of pull requests or issues. Please read our [contributing guidelines](./contributing.md) for more information.
 
 ## Authors
 
@@ -89,4 +83,7 @@ Please adhere to this project's `code of conduct`.
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Hello](./demo/scrshot-l4i-hi.png)
+![App Computer List](./demo/scrshot-l4i-list.png)
+
+![App Settings](./demo/scrshot-i4i-settngs.png)
