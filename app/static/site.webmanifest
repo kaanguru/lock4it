@@ -5,8 +5,30 @@
 	"id": "com.cemkaan.lock4it",
 	"lang": "en-US",
 	"theme_color": "#FB8500",
+	"background_color": "#219EBC",
 	"display": "standalone",
 	"start_url": "/",
+	"launch_handler": {
+		"client_mode": ["navigate-existing", "auto"]
+	},
+	"orientation": "portrait-primary",
+	"categories": ["business", "productivity", "security", "utilities"],
+	"dir": "auto",
+	"prefer_related_applications": true,
+	"related_applications": [
+		{
+			"platform": "windows",
+			"url": "https://www.lansweeper.com/",
+			"id": "com.lansweeper"
+		},
+		{
+			"platform": "play",
+			"url": "https://play.google.com/store/apps/details?id=com.kunzisoft.keepass.free&hl=en-US",
+			"id": "com.kunzisoft.keepass.free"
+		}
+	],
+	"scope": "https://app-lock4it.netlify.app",
+	"scope_extensions": [{ "origin": "*.netlify.app" }],
 	"icons": [
 		{
 			"src": "icons/android-chrome-192x192.png",
