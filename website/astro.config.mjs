@@ -25,6 +25,10 @@ const whenExternalScripts = (items = []) =>
   hasExternalScripts ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
 
 export default defineConfig({
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['tr', 'en'],
+  },
   output: 'static',
 
   integrations: [
@@ -36,6 +40,7 @@ export default defineConfig({
     icon({
       include: {
         tabler: ['*'],
+        twemoji: ['*'],
         'flat-color-icons': [
           'template',
           'gallery',

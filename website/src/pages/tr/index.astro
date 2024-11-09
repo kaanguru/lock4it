@@ -1,0 +1,137 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features from '~/components/widgets/Features.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Lock4IT BT çalışanlarına yardımcı oluyor ',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Başla',
+        href: 'https://app-lock4it.netlify.app/',
+        target: '_blank',
+        icon: 'tabler:database',
+      },
+      { text: 'Daha fazla bilgi edin', href: '#features' },
+    ]}
+    image={{ src: '/img/lock4it-enter.webp', alt: ' Keep Your Data Offline with lock4it' }}
+  >
+    <Fragment slot="title">
+      <span class="hidden xl:inline">Bilgisayarları kontrol edin!</span>
+      Bilgilerinizi Internet'ten Uzak Tutun
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="text-primary dark:text-white highlight">Lock4IT</span><span class="hidden sm:inline">
+        <span class="font-semibold">güvenli</span> ve Offline
+      </span>
+      bilgisayarlar için yönetim çözümüdür. Tüm verilerinizi tarayıcınızda güvenli bir şekilde saklayarak bulut depolama
+      endişelerini ortadan kaldırır. Ana parolanızla oturum açtıktan sonra cihazlarınızı kolayca ekleyebilir ve uzak bağlantı
+      parolalarınızı güvenli bir şekilde yönetebilirsiniz.
+    </Fragment>
+  </Hero>
+
+  <!-- Note Widget ******************* -->
+  <Note />
+
+  <!-- Features Widget *************** -->
+
+  <Features
+    id="features"
+    tagline="Özellikler"
+    title="Lock4it ile neler elde edersiniz?"
+    subtitle="Çevrimdışı işlevselliğiyle, gizliliğinizi koruyarak bilgilerinize istediğiniz zaman, istediğiniz yerden erişebilirsiniz."
+    items={[
+      {
+        title: 'ana parola ile lock4it',
+        description: 'Ekranınızdan uzaktayken verilerinizi kilitleyin',
+        icon: 'tabler:password',
+      },
+      {
+        title: 'Duyarlı ve Mobil Uyumlu',
+        description:
+          'Tutarlı bir deneyim sağlamak için farklı ekran boyutlarına ve cihazlara sorunsuz bir şekilde uyum sağlayın.',
+        icon: 'tabler:picture-in-picture',
+      },
+      {
+        title: 'Güçlü Şema',
+        description:
+          'Veri şemaları, kullanıcı deneyimini, verimliliği ve kaliteyi iyileştirirken veri doğruluğunu ve güvenliğini artırır.',
+        icon: 'tabler:adjustments-horizontal',
+      },
+      {
+        title: 'Hızlı Yükleme Süreleri',
+        description: 'Sorunsuz bir kullanıcı deneyimi sağlamak için hız için optimize edildi',
+        icon: 'tabler:rocket',
+      },
+    ]}
+  />
+
+  <!-- FAQs Widget ******************* -->
+
+  <FAQs
+    title="lock4it ile elde edilenler"
+    subtitle="Çevrimdışı işlevselliğiyle, gizliliğinizi korurken bilgilerinize istediğiniz zaman, istediğiniz yerden erişebilirsiniz."
+    tagline="FAQs"
+    classes={{ container: 'max-w-6xl' }}
+    items={[
+      {
+        title: 'lock4it with main password',
+        description: 'Ekranınızdan uzaktayken verilerinizi kilitleyin',
+        icon: 'tabler:password',
+      },
+      {
+        title: 'Duyarlı ve Mobil Uyumlu',
+        description:
+          'Tutarlı bir deneyim sağlamak için farklı ekran boyutlarına ve cihazlara sorunsuz bir şekilde uyum sağlayın.',
+        icon: 'tabler:picture-in-picture',
+      },
+      {
+        title: 'Güçlü Şema',
+        description:
+          'Veri şemaları, kullanıcı deneyimini, verimliliği ve kaliteyi iyileştirirken veri doğruluğunu ve güvenliğini artırır.',
+        icon: 'tabler:adjustments-horizontal',
+      },
+      {
+        title: 'Hızlı Yükleme Süreleri',
+        description: 'Sorunsuz bir kullanıcı deneyimi sağlamak için hız için optimize edildi',
+        icon: 'tabler:rocket',
+      },
+    ]}
+  />
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Başlayın',
+        href: 'https://app-lock4it.netlify.app/',
+        target: '_blank',
+        icon: 'tabler:database',
+      },
+    ]}
+  >
+    <Fragment slot="title">
+      Lock<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">IT</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Sorumluluğunuz altındaki bilgisayarlar hakkında notlar almaya başlayın <br class="hidden md:inline" />Sonsuza
+      Kadar Ücretsiz!
+    </Fragment>
+  </CallToAction>
+</Layout>
