@@ -94,11 +94,8 @@
 		</form>
 	{:else}
 		<h1>{$_('hello_friend')}</h1>
-		<span>
-			<img src="img/lock4it-logo-bw.webp" class="h-7 w-28" alt="Lock4IT Locked it" />
-			has Locked it
-		</span>
 		<p>{$_('enter_your_passw')}</p>
+		<img src="img/lock4it-logo-bw.webp" class="h-7 w-28 self-center mt-5 mb-8" alt={$_('lock4it_locked_i')} />
 		<form onsubmit={preventDefault(unlock)}>
 			<MainPasswordInputArea submit={$_('unlock')} on:update={handleUpdate}></MainPasswordInputArea>
 		</form>
