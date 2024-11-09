@@ -14,10 +14,16 @@ Offline hardware and software asset management tool for IT professionals.
 
 ## Features
 
-- Multi-Lang
+- Multi-Lang ! 🇦🇪 - 🇬🇧 - 🇷🇺 - 🇹🇷 - 🇨🇳
 - Your data is always stored offline
 - Export and back-up encrypted data
 - Master Password
+- Progressive Web App (PWA)
+- Auto Dark Mode
+
+## Run Locally
+
+Can be used in Linux, Windows, macOS and Chromebook PC.
 
 ## Develop your own 4IT Inventory
 
