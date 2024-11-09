@@ -16,7 +16,7 @@
 			goto('/');
 		}
 	});
-	export let data;
+	let { data } = $props();
 	const handler = new DataHandler(data.computers, { rowsPerPage: 10 });
 	const rows = handler.getRows();
 	function navigateToComputer(i: string | number) {
@@ -52,8 +52,8 @@
 			</thead>
 			<tbody>
 				{#each $rows as row}
-					<tr class="h-14" on:click={row.id ? navigateToComputer(row.id) : undefined}>
-						<td class="font-semibold px-16">{row.name}</td>
+					<tr class="h-14" onclick={row.id ? navigateToComputer(row.id) : undefined}>
+						<td class="font-semibold flex items-center">{row.name}</td>
 						{#if row.ipAddress}
 							<td class="td-ip">{row.ipAddress}</td>
 						{/if}

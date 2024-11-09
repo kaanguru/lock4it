@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { preventDefault } from 'svelte/legacy';
+
 	import { goto, invalidateAll } from '$app/navigation';
 	import { setToken } from '$lib/db';
 	import MainPasswordInputArea from '$lib/components/MainPasswordInputArea.svelte';
@@ -7,9 +9,9 @@
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { _ } from 'svelte-i18n';
 	const toastStore = getToastStore();
-	export let data;
+	let { data } = $props();
 	let plainTextPassword: string;
-	let shortPassword = false;
+	let shortPassword = $state(false);
 	loggedIn.subscribe((v) => {
 		if (v) {
 			goto('/computers');
@@ -86,15 +88,18 @@
 			<br />
 			{$_('it_will_be_your')}
 		</p>
-		<form on:submit|preventDefault={saveMasterPass}>
+		<form onsubmit={preventDefault(saveMasterPass)}>
 			<MainPasswordInputArea needsTypoCheck submit={$_('save_your_master')} on:update={handleUpdate}
 			></MainPasswordInputArea>
 		</form>
 	{:else}
 		<h1>{$_('hello_friend')}</h1>
-		<img src="img/lock4it-logo.png" alt="logo" />
+		<span>
+			<img src="img/lock4it-logo-bw.webp" class="h-7 w-28" alt="Lock4IT Locked it" />
+			has Locked it
+		</span>
 		<p>{$_('enter_your_passw')}</p>
-		<form on:submit|preventDefault={unlock}>
+		<form onsubmit={preventDefault(unlock)}>
 			<MainPasswordInputArea submit={$_('unlock')} on:update={handleUpdate}></MainPasswordInputArea>
 		</form>
 	{/if}
@@ -104,9 +109,6 @@
 </div>
 
 <style>
-	img {
-		@apply py-9;
-	}
 	.middle-container {
 		@apply flex flex-col text-center;
 	}

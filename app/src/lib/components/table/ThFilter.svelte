@@ -2,9 +2,13 @@
 	import type { DataHandler } from '@vincjo/datatables';
 	import { _ } from 'svelte-i18n';
 
-	export let handler: DataHandler;
-	export let filterBy: string;
-	let value: string;
+	interface Props {
+		handler: DataHandler;
+		filterBy: string;
+	}
+
+	let { handler, filterBy }: Props = $props();
+	let value: string = $state();
 </script>
 
 <th>
@@ -13,7 +17,7 @@
 		type="text"
 		placeholder={$_('filter')}
 		bind:value
-		on:input={() => {
+		oninput={() => {
 			if (filterBy) handler.filter(value, filterBy);
 		}}
 	/>
