@@ -26,6 +26,7 @@
   "invalid_p": "密码无效！\n请重试",
   "ip_address": "IP地址",
   "it_will_be_your": "毕竟这将是您的主密码",
+  "lock4it_locked_i": "Lock4IT 锁定它",
   "mac_address": "电脑地址",
   "memory_ram_in_gb": "内存（RAM，单位：GB）",
   "monitor": "监视器",

@@ -26,6 +26,7 @@
   "invalid_p": "Неверный пароль! Попробуйте снова",
   "ip_address": "IP-адрес",
   "it_will_be_your": "Это будет ваш Мастер-пароль  после всех этих шагов",
+  "lock4it_locked_i": "Lock4IT Заблокировал это",
   "mac_address": "Mac-адрес",
   "memory_ram_in_gb": "Память (ОЗУ в Гб)",
   "monitor": "Монитор",
