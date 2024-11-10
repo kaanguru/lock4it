@@ -6,8 +6,9 @@ import { faker } from '@faker-js/faker';
 const mockData = generateMock(_computerSchema);
 let firstRun = true;
 let loggedIn = false;
-const mockPass = 'testPass';
+const mockPass = 'test Pass';
 test.beforeEach(async ({ page }) => {
+	await page.goto('/computers/add');
 	const friend = await page.getByRole('heading', { name: 'Hello friend!' }).first().isVisible();
 	if (friend) {
 		await logIn(page);
@@ -21,6 +22,8 @@ test.beforeEach(async ({ page }) => {
 	if (friend) {
 		await logIn(page);
 	}
+
+	await page.waitForTimeout(500);
 	await fillName(page);
 });
 
@@ -31,7 +34,6 @@ test.describe('Tests expected to pass', () => {
 		await fillField(page, 'Mac Address', faker.internet.mac());
 		await page.getByRole('button', { name: 'Network' }).click();
 		await page.getByRole('button', { name: 'Hardware' }).click();
-		// Conditionally fill fields based on mockData
 		const titlesAndValues = [
 			['processor', mockData.processor],
 			['monitor', mockData.monitor],
@@ -43,14 +45,12 @@ test.describe('Tests expected to pass', () => {
 		for (const [title, value] of titlesAndValues) {
 			await fillField(page, title, value);
 		}
-		// scrool page down
 		await page.evaluate(() => {
 			window.scrollBy(0, window.innerHeight);
 			return Promise.resolve();
 		});
 
 		await page.getByRole('button', { name: 'Add Computer' }).click();
-		// await page.getByLabel('Dismiss toast').click();
 		await expect(page.getByRole('paragraph').getByText(mockData.name)).toBeVisible();
 	});
 });
@@ -111,7 +111,6 @@ async function logIn(page: Page) {
 	await page.getByPlaceholder('Enter master password').fill(mockPass);
 	await page.getByRole('button', { name: 'UnLock' }).click();
 	loggedIn = true;
-	await page.goto('/computers/add');
 }
 async function fillName(page) {
 	const friend = await page.getByRole('heading', { name: 'Hello friend!' }).first().isVisible();
