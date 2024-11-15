@@ -30,6 +30,7 @@ metadata:
 i18n:
   language: en
   textDirection: ltr
+  locales: ['en', 'tr']
 
 apps:
 
