@@ -24,9 +24,11 @@ const JsonFormatter = {
 	}
 };
 async function encryptedData(data: string): Promise<object> {
+	// @ts-ignore
 	return CryptoES.Rabbit.encrypt(JSON.stringify([data]), await token(), { format: JsonFormatter });
 }
 async function decryptData(encryptd: string) {
+	// @ts-ignore
 	return CryptoES.Rabbit.decrypt(encryptd, await token(), { format: JsonFormatter }).toString(CryptoES.enc.Utf8);
 }
 async function token() {
