@@ -1,10 +1,11 @@
 import * as R from 'rambda';
 import { encryptedData } from './crypt';
+import type { Computer } from './db';
 
 export class PrepareForExportThenSave {
-	private tableToExport;
+	private tableToExport: Computer[];
 
-	constructor(tableToExport) {
+	constructor(tableToExport: Computer[]) {
 		this.tableToExport = tableToExport;
 	}
 	async handleExport() {
@@ -15,9 +16,9 @@ export class PrepareForExportThenSave {
 		const url = await createUrl();
 		await this.downloadFileThenClean(url, fileName);
 	}
-	private async createJsonBlob(data) {
+	private async createJsonBlob(data: Computer[]): Promise<Blob> {
 		return new Promise(async (resolve) => {
-			const encrypted = await encryptedData(data);
+			const encrypted = await encryptedData(data as unknown as string);
 
 			const blobIT = [JSON.stringify(encrypted)];
 
@@ -26,7 +27,7 @@ export class PrepareForExportThenSave {
 		});
 	}
 
-	private downloadFileThenClean(url, filename) {
+	private downloadFileThenClean(url: string, filename: string) {
 		const downloadLink = this.createDownloadLink(url, filename);
 		document.body.appendChild(downloadLink);
 		downloadLink.click();
@@ -34,7 +35,7 @@ export class PrepareForExportThenSave {
 		URL.revokeObjectURL(url);
 	}
 
-	private createDownloadLink(url, filename) {
+	private createDownloadLink(url: string, filename: string) {
 		const link = document.createElement('a');
 		link.href = url;
 		link.download = filename;
